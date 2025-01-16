@@ -1,18 +1,19 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import TurfCard from "@/components/card.component";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Footer from "@/components/footer";
 
 const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
-
+            {/* header*/}
             <View style={styles.header}>
-                <FontAwesome6 name="baseball-bat-ball" size={24} color="white"  />
+            <MaterialCommunityIcons name="cricket" size={24} color="white" />
                 <Text style={styles.headerText}>Turf Book</Text>
             </View>
-
+            {/* search*/}
             <View style={styles.searchContainer}>
                 <TextInput style={styles.searchInput} placeholder="Search" />
                 <FontAwesome name="search" size={20} color="#000" style={styles.searchIcon} />
@@ -22,23 +23,9 @@ const Home = () => {
                 <TurfCard/>
             </View>
 
-            <View style={styles.bottomNav}>
-                <TouchableOpacity style={styles.navItem}>
-                    <FontAwesome name="home" size={20} color="white" />
-                    <Text style={styles.navText}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <FontAwesome name="history" size={20} color="white" />
-                    <Text style={styles.navText}>Booking History</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <FontAwesome name="user" size={20} color="white" />
-                    <Text style={styles.navText}>Profile</Text>
-                </TouchableOpacity>
+            <View style={styles.footerContainer}>
+                <Footer/>
             </View>
-
-
-
         </SafeAreaView>
     )
 };
@@ -75,6 +62,7 @@ const styles = StyleSheet.create({
         margin: 20,
         borderRadius: 15,
         paddingHorizontal: 10,
+        borderWidth: 1
     },
     searchInput: {
         height: 40
@@ -82,24 +70,9 @@ const styles = StyleSheet.create({
     searchIcon: {
         marginLeft: 280,
     },
+    footerContainer: {
+        marginTop: 374
+    },
    
-    bottomNav: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        backgroundColor: "#275F8E",
-        marginTop: 493,
-        height: 70
-
-    },
-    navItem: {
-        alignItems: "center",
-        justifyContent: 'center'
-    },
-    navText: {
-        color: "white",
-        fontSize: 12,
-        marginTop: 5,
-    },
-
 }
 )  

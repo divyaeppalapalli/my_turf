@@ -1,7 +1,14 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 
 const TurfCard = () => {
+    const router = useRouter();
+
+    const handleBookNow = () => {
+        router.push('/home/detailpage');
+    }
+
     return <React.Fragment>
         <View style={styles.cardContainer}>
             <View>
@@ -18,7 +25,7 @@ const TurfCard = () => {
                 </View>
             </View>
             <View>
-                <Button title='Book Now' />
+                <Button title='Book Now' onPress={handleBookNow} />
             </View>
         </View>
     </React.Fragment>
