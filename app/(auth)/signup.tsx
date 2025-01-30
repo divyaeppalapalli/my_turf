@@ -1,10 +1,16 @@
 import React from 'react';
 import TextField from "@/components/TextField";
-import { Link } from "expo-router";
+import { Link, useRouter} from "expo-router";
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios, { AxiosError } from 'axios';
+
+const http = axios.create({
+    baseURL: 'http://192.168.0.117:3000'
+});
 
 const SignUp = () => {
+    const router = useRouter();
     const [name, setName] = React.useState("");
     const [errMessage, setErrMessage] = React.useState<any>(null);
 
@@ -54,10 +60,17 @@ const SignUp = () => {
         } else {
             setErrMessage3("Enter your confirm password...");
         }   
-        
-        const person = {name, phoneNumber, password};
-
-        console.log(person);
+        http.post('/createUser', {
+            "name": name,
+            "phoneNumber": phoneNumber,
+            "password": password
+        })
+        .then(res => {
+            console.log('user signed in, ', res.data);
+            router.replace('/(tabs)');
+        }).catch((err: AxiosError) => {
+            console.log('err in signup: ', err.message);
+        });
     }
 
     return <SafeAreaView style={{backgroundColor: '#E1E5F2'}}>

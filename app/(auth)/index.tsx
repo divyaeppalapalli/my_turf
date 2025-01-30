@@ -43,7 +43,7 @@ const Login = () => {
         })
         .then(res => {
             console.log('user logged in, ', res.data);
-            router.replace('/home');
+            router.replace('/(tabs)');
         }).catch((err: AxiosError) => {
             console.log('err in login: ', err.message);
         });

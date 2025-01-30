@@ -2,7 +2,14 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 
-const TurfCard = () => {
+type IProps = {
+    name: string;
+    location: string;
+    thumbnail: string;
+}
+
+const TurfCard = (props: IProps) => {
+    const { name, location, thumbnail = '@/assets/images/no-image.png' } = props;
     const router = useRouter();
 
     const handleBookNow = () => {
@@ -16,12 +23,12 @@ const TurfCard = () => {
                     <Image style={{width: 50, height: 50, resizeMode: 'contain'}} source={require('@/assets/images/no-image.png')} width={50} height={50}/>
                 </View>
             </View>
-            <View>
+            <View style={styles.name_list}>
                 <View>
-                    <Text>Turf Name</Text>
+                    <Text>{name}</Text>
                 </View>
                 <View>
-                    <Text>Area Name</Text>
+                    <Text>{location}</Text>
                 </View>
             </View>
             <View>
@@ -36,11 +43,12 @@ export default TurfCard;
 const styles = StyleSheet.create({
     cardContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: "space-between",
         elevation: 3,
         backgroundColor: '#FFF',
         paddingVertical: 15,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        marginBottom: 10
     },
     imageWrapper: {
         backgroundColor: '#eee',
@@ -48,5 +56,10 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         resizeMode: 'contain'
-    }
+    },
+    name_list: {
+        
+        
+
+    },
 })

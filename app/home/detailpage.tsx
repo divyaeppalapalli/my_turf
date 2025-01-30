@@ -40,7 +40,7 @@ const DetailPage = () => {
                 ..
             </Text>
 
-            <View style={styles.footerContainer}>
+            <View>
                 <Footer/>
             </View>
         
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee',
         borderRadius: 10,
         alignItems: "center",
-        marginTop: -40
+        
 
     },
     sectionTitle: {
@@ -112,9 +112,7 @@ const styles = StyleSheet.create({
         marginLeft: 20
 
     },
-    footerContainer: {
-        
-    },
+  
     
    
 

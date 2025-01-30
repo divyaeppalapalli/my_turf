@@ -4,27 +4,41 @@ import { FontAwesome } from "@expo/vector-icons";
 import TurfCard from "@/components/card.component";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Footer from "@/components/footer";
+import axios, { AxiosError } from "axios";
+import { useEffect, useState } from "react";
+
+const http = axios.create({
+    baseURL: 'http://192.168.0.117:3000'
+});
 
 const Home = () => {
+    const [turfs, setTurfs] = useState([]);
+
+    const getTurfs = () => {
+        http.get('/turfs')
+        .then(res => {
+            console.log('turfs: ', res.data);
+            setTurfs(res.data);
+        }).catch((err: AxiosError) => {
+            console.log('err in home page get turfs: ', err.message);
+        });
+    }
+
+    useEffect(() => {
+        getTurfs();
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
-            {/* header*/}
-            <View style={styles.header}>
-            <MaterialCommunityIcons name="cricket" size={24} color="white" />
-                <Text style={styles.headerText}>Turf Book</Text>
-            </View>
-            {/* search*/}
             <View style={styles.searchContainer}>
                 <TextInput style={styles.searchInput} placeholder="Search" />
                 <FontAwesome name="search" size={20} color="#000" style={styles.searchIcon} />
             </View>
 
             <View style={styles.rowContainer}>
-                <TurfCard/>
-            </View>
-
-            <View style={styles.footerContainer}>
-                <Footer/>
+                {turfs.map((turf: any, index: number) => {
+                    return <TurfCard name={turf.name || "untitled"} location="Bhiwnadi" thumbnail="" key={index}/>
+                })}
             </View>
         </SafeAreaView>
     )
@@ -35,25 +49,10 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#eee',
-        height: '80%',
+        height: '100%',
     },
     rowContainer: {
         paddingHorizontal: 20
-    },
-    header: {
-        backgroundColor: "#275F8E",
-        height: 60,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 20,
-        marginTop: -50
-    },
-    headerText: {
-        color: "white",
-        fontSize: 22,
-        fontWeight: "bold",
-        marginRight: 230
     },
     searchContainer: {
         flexDirection: "row",
