@@ -16,9 +16,6 @@ export default function TabLayout() {
                 <Text style={styles.headerText}>My Turf Book</Text>
             </View>
           },
-          headerStyle: {
-            paddingTop: 50
-          },
           // headerStatusBarHeight: StatusBar.currentHeight
         }}
       />

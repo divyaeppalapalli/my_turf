@@ -3,16 +3,56 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Footer from "@/components/footer";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
+import CustomCarousel from "./slider";
 
-const DetailPage = () => {
+const http = axios.create({
+    baseURL: 'http://192.168.0.117:3000'
+});
+
+type IProps = {
+    name: string;
+    address: string;
+    thumbnail: string;
+    contact: string;
+    note: string;
+    images: [string];
+}
+const DetailPage = (props: IProps) => {
+    const { turfId } = useLocalSearchParams();
+    {/*console.log('id: ', turfId);*/}
+
+    const [turf, setTurf] = useState<any>();
+
+    const getTurf = () => {
+        http.get('/turf/' + turfId)
+            .then(res => {
+                {/*console.log('turf: ', res.data);*/}
+                setTurf(res.data);
+            }).catch((err: AxiosError) => {
+                console.log('err in home page get turfs: ', err.message);
+            });
+    }
+
+    useEffect(() => {
+        getTurf();
+    }, []);
+
+
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View>
                 <View style={styles.images}>
-                    <Image style={{ width: 400, height: 200, }} source={require('@/assets/images/turf_image.jpg')} width={50} height={50} />
+                    <CustomCarousel images={turf?.images}/>
+                    {/* <Image style={{ width: 400, height: 200, }} source={require('@/assets/images/turf_image.jpg')} width={50} height={50} /> */}
                 </View>
             </View>
 
+            <View>
+                <Text style={styles.name_turf}>{turf?.name}</Text>
+            </View>
             <Text style={styles.sectionTitle}>Book a Slot</Text>
             {/* book slot*/}
             <View style={styles.buttonsContainer}>
@@ -30,21 +70,22 @@ const DetailPage = () => {
             {/* address*/}
             <Text style={styles.label}>Address:</Text>
             <Text style={styles.value}>
-                Opp. oswal school, kamatghar road, anjurphata, bhiwandi - 421302
+                {turf?.address}
             </Text>
             {/* contact*/}
             <Text style={styles.label}>Contact:</Text>
-            <Text style={styles.value}>+91 xxxxxxxxxx</Text>
+            <Text style={styles.value}>{turf?.contact}</Text>
             {/* note*/}
-            <Text style={styles.label}>Note:
-                ..
-            </Text>
+            <Text style={styles.label}>Note:</Text>
+            <Text style={styles.value}>{turf?.note}</Text>
+            
 
-            <View>
+
+            {/* <View>
                 <Footer/>
-            </View>
-        
-        </SafeAreaView >
+            </View>*/}
+
+        </View >
     )
 }
 
@@ -56,19 +97,26 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     images: {
-        backgroundColor: '#eee',
-        borderRadius: 10,
+        width: 500,
+        height: 500 / 2,
+        // backgroundColor: '#eee',
+        // borderRadius: 10,
         alignItems: "center",
-        
+
 
     },
     sectionTitle: {
         fontSize: 20,
         marginVertical: 10,
-        marginTop: 20,
         marginLeft: 20
+    },
 
-
+    name_turf: {
+        fontSize: 24,
+        fontWeight: '800',
+        marginVertical: 10,
+        marginTop: 5,
+        marginLeft: 20
     },
     buttonsContainer: {
         flexDirection: 'row',
@@ -104,7 +152,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 20
 
-        
+
     },
     value: {
         fontSize: 16,
@@ -112,9 +160,9 @@ const styles = StyleSheet.create({
         marginLeft: 20
 
     },
-  
-    
-   
+
+
+
 
 
 })

@@ -17,7 +17,6 @@ const Home = () => {
     const getTurfs = () => {
         http.get('/turfs')
         .then(res => {
-            console.log('turfs: ', res.data);
             setTurfs(res.data);
         }).catch((err: AxiosError) => {
             console.log('err in home page get turfs: ', err.message);
@@ -29,7 +28,7 @@ const Home = () => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.searchContainer}>
                 <TextInput style={styles.searchInput} placeholder="Search" />
                 <FontAwesome name="search" size={20} color="#000" style={styles.searchIcon} />
@@ -37,10 +36,10 @@ const Home = () => {
 
             <View style={styles.rowContainer}>
                 {turfs.map((turf: any, index: number) => {
-                    return <TurfCard name={turf.name || "untitled"} location="Bhiwnadi" thumbnail="" key={index}/>
+                    return <TurfCard name={turf.name || "untitled"} location="Bhiwnadi" id={turf._id} thumbnail={turf.thumbnail} key={index}/>
                 })}
             </View>
-        </SafeAreaView>
+        </View>
     )
 };
 
@@ -49,7 +48,7 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#eee',
-        height: '100%',
+        // height: '100%',
     },
     rowContainer: {
         paddingHorizontal: 20
@@ -68,10 +67,6 @@ const styles = StyleSheet.create({
     },
     searchIcon: {
         marginLeft: 280,
-    },
-    footerContainer: {
-        marginTop: 374
-    },
-   
+    },   
 }
 )  

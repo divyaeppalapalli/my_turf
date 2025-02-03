@@ -46,10 +46,8 @@ const Login = () => {
             router.replace('/(tabs)');
         }).catch((err: AxiosError) => {
             console.log('err in login: ', err.message);
-        });
+        });        
     }
-
-
 
     return <SafeAreaView>
         <View style={styles.container}>

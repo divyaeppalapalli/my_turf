@@ -1,26 +1,28 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 
 type IProps = {
     name: string;
     location: string;
     thumbnail: string;
+    id: string;
+   
 }
 
 const TurfCard = (props: IProps) => {
-    const { name, location, thumbnail = '@/assets/images/no-image.png' } = props;
+    const { name, location, thumbnail = '@/assets/images/no-image.png', id } = props;
     const router = useRouter();
 
-    const handleBookNow = () => {
-        router.push('/home/detailpage');
+    const handleBookNow = (turfId: string) => {
+        router.push({pathname: `/home/detailpage`, params:{turfId: turfId}});
     }
 
     return <React.Fragment>
         <View style={styles.cardContainer}>
             <View>
                 <View style={styles.imageWrapper}>
-                    <Image style={{width: 50, height: 50, resizeMode: 'contain'}} source={require('@/assets/images/no-image.png')} width={50} height={50}/>
+                    <Image style={{width: 50, height: 50, resizeMode: 'contain'}} source={{uri: thumbnail}} width={50} height={50}/>
                 </View>
             </View>
             <View style={styles.name_list}>
@@ -32,7 +34,7 @@ const TurfCard = (props: IProps) => {
                 </View>
             </View>
             <View>
-                <Button title='Book Now' onPress={handleBookNow} />
+                <Button title='Book Now' onPress={() => handleBookNow(id)} />
             </View>
         </View>
     </React.Fragment>
@@ -47,8 +49,9 @@ const styles = StyleSheet.create({
         elevation: 3,
         backgroundColor: '#FFF',
         paddingVertical: 15,
-        paddingHorizontal: 15,
-        marginBottom: 10
+        paddingHorizontal: 10,
+        marginBottom: 10,
+        alignItems: "center"
     },
     imageWrapper: {
         backgroundColor: '#eee',
@@ -57,9 +60,9 @@ const styles = StyleSheet.create({
         height: 50,
         resizeMode: 'contain'
     },
-    name_list: {
-        
-        
-
+    name_list: {        
+        flex: 1,
+        alignItems: "flex-start",
+        marginLeft: 15
     },
 })
