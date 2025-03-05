@@ -3,13 +3,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Footer from "@/components/footer";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import {  useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import CustomCarousel from "./slider";
 
 const http = axios.create({
-    baseURL: 'http://192.168.0.117:3000'
+    baseURL: 'http://192.168.31.132:3000'
 });
 
 type IProps = {
@@ -21,15 +21,13 @@ type IProps = {
     images: [string];
 }
 const DetailPage = (props: IProps) => {
+    const router = useRouter();
     const { turfId } = useLocalSearchParams();
-    {/*console.log('id: ', turfId);*/}
-
     const [turf, setTurf] = useState<any>();
 
     const getTurf = () => {
         http.get('/turf/' + turfId)
             .then(res => {
-                {/*console.log('turf: ', res.data);*/}
                 setTurf(res.data);
             }).catch((err: AxiosError) => {
                 console.log('err in home page get turfs: ', err.message);
@@ -39,7 +37,10 @@ const DetailPage = (props: IProps) => {
     useEffect(() => {
         getTurf();
     }, []);
-
+    
+    const handleBookNow = () => {
+        router.push({pathname: `/home/slot`});
+    }
 
     return (
         <View style={styles.container}>
@@ -56,12 +57,12 @@ const DetailPage = (props: IProps) => {
             <Text style={styles.sectionTitle}>Book a Slot</Text>
             {/* book slot*/}
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => handleBookNow()} > 
                     <MaterialCommunityIcons name="cricket" size={24} color="black" />
                     <Text style={styles.buttonText}>Cricket</Text>
                     <Text style={styles.bookText}>Book</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => handleBookNow()}>
                     <FontAwesome5 name="futbol" size={24} color="black" />
                     <Text style={styles.buttonText}>Football</Text>
                     <Text style={styles.bookText}>Book</Text>
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
 
     name_turf: {
         fontSize: 24,
-        fontWeight: '800',
+        fontWeight: 'bold',
         marginVertical: 10,
         marginTop: 5,
         marginLeft: 20

@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { AxiosError } from 'axios';
 
 const http = axios.create({
-    baseURL: 'http://192.168.0.117:3000'
+    baseURL: 'http://192.168.31.132:3000'
 });
 
 const SignUp = () => {

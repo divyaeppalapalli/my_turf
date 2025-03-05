@@ -8,7 +8,7 @@ import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 
 const http = axios.create({
-    baseURL: 'http://192.168.0.117:3000'
+    baseURL: 'http://192.168.31.132:3000'
 });
 
 const Home = () => {

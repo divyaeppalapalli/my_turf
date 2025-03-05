@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useRouter } from "expo-router";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Pressable } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,7 +6,7 @@ import TextField from '@/components/TextField';
 import axios, { AxiosError } from 'axios';
 
 const http = axios.create({
-    baseURL: 'http://192.168.0.117:3000'
+    baseURL: 'http://192.168.31.132:3000'
 });
 
 const Login = () => {
@@ -16,6 +16,12 @@ const Login = () => {
 
     const [password, setpassword] = React.useState("");
     const [errMessage1, setErrMessage1] = React.useState<any>(null);
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //                 router.push('/home/slot');
+    //     }, 1000);
+    // },[]);
 
     const handleLogin  = () => {
         
@@ -36,6 +42,7 @@ const Login = () => {
         } else {
             setErrMessage1("Enter your password...");
         }
+        console.log("err", phoneNumber, password)
         
         http.post('/login', {
             "phoneNumber": phoneNumber,

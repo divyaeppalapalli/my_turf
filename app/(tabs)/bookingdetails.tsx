@@ -10,6 +10,7 @@ export default function Tab() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#eee',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
@@ -24,6 +24,13 @@ export default function TabLayout() {
         options={{
           title: 'Booking History',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <AntDesign name="profile" size={24} color={color} />,
         }}
       />
     </Tabs>

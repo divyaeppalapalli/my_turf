@@ -16,6 +16,8 @@ export default function HomeLayout() {
               },
             }}            
             />
+            <Stack.Screen name="slot" options={{headerShown: false}} />
+            <Stack.Screen name="showbooking" options={{headerShown: false}} />
         </Stack>
           
     );
